@@ -13,7 +13,7 @@ const Component = href ? 'a' : 'button'
 
 {variant === 'contained'
     && <Component
-        class={"bg-olive-500 hover:bg-olive-400 transition-all duration-250 text-sm text-white font-bold py-2 px-4 rounded-lg pointer " + className}
+        class={className + " bg-olive-700 hover:bg-olive-500 transition-all duration-200 text-sm text-white font-bold py-2 px-4 rounded-lg pointer "}
         href={href}
         {...otherProps}
     >
@@ -23,7 +23,7 @@ const Component = href ? 'a' : 'button'
 
 {variant === 'outline'
     && <Component
-        class={"border-2 border-olive-500 hover:border-olive-400 h0ver:text-olive-400 transition-all duration-250 text-sm text-olive-500 font-bold py-2 px-4 rounded-lg pointer " + className}
+        class={className + " border-2 border-olive-700 hover:border-olive-500 h0ver:text-olive-400 transition-all duration-200 text-sm text-olive-500 font-bold py-2 px-4 rounded-lg pointer "}
         href={href}
         {...otherProps}
     >
@@ -33,7 +33,7 @@ const Component = href ? 'a' : 'button'
 
 {variant === 'link'
     && <Component
-        class={"text-olive-500 hover:text-olive-400 hover:underline transition-all duration-250 pointer " + className}
+        class={className + " text-olive-700 hover:text-olive-500 hover:underline transition-all duration-200 pointer "}
         href={href}
         {...otherProps}
     >

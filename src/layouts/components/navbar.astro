@@ -4,12 +4,12 @@ import { Image } from "astro:assets";
 import Button from "./button.astro"
 ---
 
-<nav class="bg-secondary md:bg-transparent sticky top-0 z-1">
+<nav id="header" class="bg-secondary md:bg-primary sticky top-0 z-1 transition-all duration-200">
     <div class="mx-auto max-w-full px-2 md:px-6 lg:px-8">
       <div class="relative flex h-16 items-center justify-between">
         <div class="absolute inset-y-0 left-0 flex items-center md:hidden">
           <!-- Mobile menu button-->
-          <Button class="relative inline-flex items-center justify-center bg-transparent text-black rounded-md px-1.5 py-1.5 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" id="mobile-menu-button" aria-controls="mobile-menu" aria-expanded="false">
+          <Button class="relative inline-flex items-center justify-center !bg-transparent !text-black rounded-md px-1.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" id="mobile-menu-button" aria-controls="mobile-menu" aria-expanded="false">
             <span class="absolute -inset-0.5"></span>
             <span class="sr-only">Open main menu</span>
             <!--
@@ -17,7 +17,7 @@ import Button from "./button.astro"
   
               Menu open: "hidden", Menu closed: "block"
             -->
-            <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" id="menu-open" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
             <!--
@@ -25,7 +25,7 @@ import Button from "./button.astro"
   
               Menu open: "block", Menu closed: "hidden"
             -->
-            <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" id="menu-close" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </Button>
@@ -39,13 +39,13 @@ import Button from "./button.astro"
           <div class="hidden md:ml-6 md:block">
             <div class="flex space-x-4">
               <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-              <Button href="#" variant="link" class="text-slate-800 hover:text-olive-500" >Features</a>
-              <Button href="#" variant="link" class="text-slate-800 hover:text-olive-500" >Resources</a>
-              <Button href="#" variant="link" class="text-slate-800 hover:text-olive-500" >Why OnBoard?</a>
+              <Button href="#" variant="link" class="!text-slate-800 hover:!text-olive-500" >Features</a>
+              <Button href="#" variant="link" class="!text-slate-800 hover:!text-olive-500" >Resources</a>
+              <Button href="#" variant="link" class="!text-slate-800 hover:!text-olive-500" >Why OnBoard?</a>
             </div>
           </div>
         </div>
-        <div class="absolute inset-y-0 right-0 flex items-center pr-2 hidden md:flex md:static md:inset-auto md:ml-6 md:pr-0">
+        <div class="absolute inset-y-0 right-0 items-center pr-2 hidden md:flex md:static md:inset-auto md:ml-6 md:pr-0">
           <Button variant="link" href={`${import.meta.env.APP_URL}/signin`} >Sign In</Button>
           <Button variant="contained" href={`${import.meta.env.APP_URL}/signup`} class="ml-3" >Sign Up</Button>
         </div>
@@ -54,11 +54,11 @@ import Button from "./button.astro"
   
     <!-- Mobile menu, show/hide based on menu state. -->
     <div class="hidden md:hidden bg-secondary absolute w-full" id="mobile-menu">
-      <div class="space-y-1 px-2 pb-3 pt-2 flex flex-col">
+      <div class="space-y-1 px-4 pb-3 pt-2 flex flex-col">
         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-        <Button href="#" variant="contained" class="w-full bg-transparent text-slate-800">Features</Button>
-        <Button href="#" variant="contained" class="w-full bg-transparent text-slate-800">Resources</Button>
-        <Button href="#" variant="contained" class="w-full bg-transparent text-slate-800">Why OnBoard?</Button>
+        <Button href="#" variant="contained" class="w-full !bg-transparent !text-slate-800 hover:!text-white hover:!bg-olive-500">Features</Button>
+        <Button href="#" variant="contained" class="w-full !bg-transparent !text-slate-800 hover:!text-white hover:!bg-olive-500">Resources</Button>
+        <Button href="#" variant="contained" class="w-full !bg-transparent !text-slate-800 hover:!text-white hover:!bg-olive-500">Why OnBoard?</Button>
         <div class="grid grid-cols-2 items-center" >
           <Button variant="link" href={`${import.meta.env.APP_URL}/signin`} class="text-center border-r-2" >Sign In</Button>
           <Button variant="contained" href={`${import.meta.env.APP_URL}/signup`} class="ml-3 text-center" >Sign Up</Button>
@@ -71,7 +71,28 @@ import Button from "./button.astro"
     const mobileMenu = document.getElementById("mobile-menu");
     mobileMenu?.classList.toggle("hidden");
     mobileMenu?.classList.toggle("block");
+    const menuOpen = document.getElementById("menu-open");
+    const menuClose = document.getElementById("menu-close");
+    menuOpen?.classList.toggle("hidden");
+    menuOpen?.classList.toggle("block");
+    menuClose?.classList.toggle("hidden");
+    menuClose?.classList.toggle("block");
   }
   document.getElementById("mobile-menu-button")?.addEventListener("click", toggleMobileMenu);
+  let isScrolled = false;
+  const header = document.getElementById('header')
+  window.onscroll = () => {
+    if(document.documentElement.scrollTop > 10) {
+      if(!isScrolled) {
+        header?.classList.add('md:bg-secondary')
+        header?.classList.add('shadow-sm')
+        isScrolled = true;
+      }
+    } else {
+      header?.classList.remove('md:bg-secondary')
+      header?.classList.remove('shadow-sm')
+      isScrolled = false;
+    }
+  }
 </script>
   

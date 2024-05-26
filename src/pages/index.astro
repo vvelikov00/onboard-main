@@ -1,11 +1,52 @@
 ---
 // Component Imports
+import { Image } from "astro:assets"
 import Layout from "../layouts/default.astro"
+import kanban from "../assets/kanban_board.svg"
+import gantt from "../assets/gantt_chart.svg"
+import Button from "../layouts/components/button.astro"
 
 // Full Astro Component Syntax:
 // https://docs.astro.build/basics/astro-components/
 ---
 
 <Layout>
-	Landing Page
+	<div class="w-full grid grid-cols-3 space-x-4" >
+		<div>
+			<Image width={500} class="mt-40"  src={kanban} alt="Kanban Board" format="avif" quality="mid" >
+		</div>
+		<div class="flex flex-col items-center pt-32" >
+			<h4 class="text-5xl text-center" >Make every project a success story</h4>
+			<p class="text-center mt-5 text-xl" >Experience seamless project managemnet from beggining to end with <span class="text-olive-500 underline" >OnBoard</span>.</p>
+			<Button href={import.meta.env.APP_URL + "/signup"} class="rounded-full text-xl flex flex-row items-center mt-5" id="get-started-button" >
+				Get Started
+				<span class="ml-3 [&>svg]:h-5 [&>svg]:w-5">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 448 512"
+						fill="currentColor"
+						id="arrow-right"
+						class="transition-all duration-300"
+						>
+						<!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+						<path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/>
+					</svg>
+				</span>
+			</Button>
+		</div>
+		<div>
+			<Image width={500} class="mt-5" src={gantt} alt="Gantt Chart" format="avif" quality="mid" ></Image>
+		</div>
+	</div>
 </Layout>
+
+<script>
+	const button = document.getElementById("get-started-button")!
+	const arrow = document.getElementById("arrow-right")
+	button.onmouseover = () => {
+		arrow?.classList.add("ml-7")
+	}
+	button.onmouseleave = () => {
+		arrow?.classList.remove("ml-7")
+	}
+</script>
