@@ -1,0 +1,42 @@
+---
+export interface Props {
+    variant?: 'outline' | 'contained' | 'link',
+    href?: string,
+    class?: string,
+    id?: string
+}
+
+const {variant = 'contained', href, class: className = '', ...otherProps} = Astro.props
+
+const Component = href ? 'a' : 'button'
+---
+
+{variant === 'contained'
+    && <Component
+        class={"bg-olive-500 hover:bg-olive-400 transition-all duration-250 text-sm text-white font-bold py-2 px-4 rounded-lg pointer " + className}
+        href={href}
+        {...otherProps}
+    >
+        <slot/>
+    </Component>
+}
+
+{variant === 'outline'
+    && <Component
+        class={"border-2 border-olive-500 hover:border-olive-400 h0ver:text-olive-400 transition-all duration-250 text-sm text-olive-500 font-bold py-2 px-4 rounded-lg pointer " + className}
+        href={href}
+        {...otherProps}
+    >
+        <slot/>
+    </Component>
+}
+
+{variant === 'link'
+    && <Component
+        class={"text-olive-500 hover:text-olive-400 hover:underline transition-all duration-250 pointer " + className}
+        href={href}
+        {...otherProps}
+    >
+        <slot/>
+    </Component>
+}
